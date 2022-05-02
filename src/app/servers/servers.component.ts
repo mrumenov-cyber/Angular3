@@ -1,12 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { timeout } from 'rxjs';
 
 @Component({
+  // selector: '[app-servers]',
+  // selector: '.app-servers',
   selector: 'app-servers',
+  // template: `
+  //   <app-server></app-server>
+  //   <app-server></app-server>`,
   templateUrl: './servers.component.html',
   styleUrls: ['./servers.component.css']
 })
 export class ServersComponent implements OnInit {
+  allowNewServer = false;
+  serverCreationStatus = 'No server was created!';
+  serverName = 'Testserver';
+  serverCreated = false;
+  servers = ['Testserver', 'Testserver 2'];
 
   constructor() {
     setTimeout(() => {
@@ -14,44 +23,16 @@ export class ServersComponent implements OnInit {
     }, 2000);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
-    allowNewServer=false;
-    serverCreationStatus = "No server was created";
-    serverName='Testserver';
-    username="";
-    serverCreated = "false";
 
-    serverID: number = 10;
-    serverStatus: string = 'offline';
+  onCreateServer() {
+    this.serverCreated = true;
+    this.servers.push(this.serverName);
+    this.serverCreationStatus = 'Server was created! Name is ' + this.serverName;
+  }
 
-    getServerStatus(){
-      return this.serverStatus;
-    }
-
-    onCreateServer(){
-      this.serverCreationStatus = "Server was created!" + this.serverName;
-    }
-
-    onUpdateServerName(event: Event){
-      this.serverName = (<HTMLInputElement>event.target).value;
-    }
-
-
-    UpdateUsername(event:Event){
-      this.username = (<HTMLInputElement>event.target).value;
-    }
-
-    ResetValue(username){
-      if(username !== "")
-      { username = "";
-      console.log(username);
-      alert("Username is back to an empty value");
-     }
-      else{
-        alert("Username is and empty string already");
-      }
-      console.log(username);
-
-    }
+  onUpdateServerName(event: Event) {
+    this.serverName = (<HTMLInputElement>event.target).value;
+  }
 }
